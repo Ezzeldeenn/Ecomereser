@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_commers_project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241105071608_E-cooomerse")]
-    partial class Ecooomerse
+    [Migration("20241105173805_E-Commerce")]
+    partial class ECommerce
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,12 +50,9 @@ namespace E_commers_project.Migrations
                     b.Property<int>("SellerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SellersSellerId")
-                        .HasColumnType("int");
-
                     b.HasKey("ProductId");
 
-                    b.HasIndex("SellersSellerId");
+                    b.HasIndex("SellerId");
 
                     b.ToTable("Products");
                 });
@@ -93,8 +90,9 @@ namespace E_commers_project.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Sellerphone")
-                        .HasColumnType("int");
+                    b.Property<string>("Sellerphone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SellerId");
 
@@ -172,7 +170,7 @@ namespace E_commers_project.Migrations
                 {
                     b.HasOne("E_commers_project.Data.Sellers", "Sellers")
                         .WithMany("Products")
-                        .HasForeignKey("SellersSellerId")
+                        .HasForeignKey("SellerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
